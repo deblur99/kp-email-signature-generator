@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>이메일 서명 생성기</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="header">
+      <h1>이메일 서명 생성기</h1>
+      <p>(주)날리지포인트 메일 서명 HTML을 생성합니다.</p>
+    </header>
+
+    <main class="layout">
+      <section class="panel form-panel">
+        <h2>입력</h2>
+        <form id="signature-form" novalidate>
+          <label>
+            <span>이름</span>
+            <input type="text" id="name" name="name" required placeholder="한현민" autocomplete="name" />
+          </label>
+
+          <label>
+            <span>직급</span>
+            <select id="title" name="title" required>
+              <option value="사원">사원</option>
+              <option value="주임">주임</option>
+              <option value="대리" selected>대리</option>
+              <option value="팀장">팀장</option>
+              <option value="과장">과장</option>
+              <option value="차장">차장</option>
+              <option value="수석">수석</option>
+              <option value="부장">부장</option>
+              <option value="이사">이사</option>
+              <option value="사장">사장</option>
+            </select>
+          </label>
+
+          <label>
+            <span>회사명</span>
+            <input type="text" id="company" name="company" value="(주)날리지포인트" />
+          </label>
+
+          <label>
+            <span>사무실 전화 (t)</span>
+            <input type="text" id="office-phone" name="officePhone" value="070-4325-4033" />
+          </label>
+
+          <div class="field-group">
+            <span class="field-label">휴대폰 (m)</span>
+            <div class="phone-row">
+              <select id="mobile-prefix" name="mobilePrefix" aria-label="휴대폰 앞자리">
+                <option value="010" selected>010</option>
+                <option value="011">011</option>
+                <option value="016">016</option>
+                <option value="017">017</option>
+                <option value="018">018</option>
+                <option value="019">019</option>
+                <option value="02">02</option>
+                <option value="031">031</option>
+                <option value="032">032</option>
+                <option value="033">033</option>
+                <option value="041">041</option>
+                <option value="042">042</option>
+                <option value="043">043</option>
+                <option value="044">044</option>
+                <option value="051">051</option>
+                <option value="052">052</option>
+                <option value="053">053</option>
+                <option value="054">054</option>
+                <option value="055">055</option>
+                <option value="061">061</option>
+                <option value="062">062</option>
+                <option value="063">063</option>
+                <option value="064">064</option>
+                <option value="070">070</option>
+              </select>
+              <span class="phone-dash">-</span>
+              <input type="text" id="mobile-number" name="mobileNumber" placeholder="2581-5658" inputmode="numeric" />
+            </div>
+          </div>
+
+          <div class="field-group">
+            <span class="field-label">이메일</span>
+            <div class="email-row">
+              <input type="text" id="email-local" name="emailLocal" placeholder="deblur99" autocomplete="username" />
+              <span class="email-suffix">@knowledgepoint.co.kr</span>
+            </div>
+          </div>
+
+          <label>
+            <span>주소</span>
+            <input
+              type="text"
+              id="address"
+              name="address"
+              value="서울 서초구 사임당로10길 3, 5층 (서초동, 원진빌딩)"
+            />
+          </label>
+
+          <button type="submit" class="btn btn-primary">생성하기</button>
+        </form>
+      </section>
+
+      <section class="panel result-panel">
+        <div class="result-block">
+          <h2>미리보기</h2>
+          <div id="preview" class="preview" aria-live="polite"></div>
+        </div>
+
+        <div class="result-block">
+          <div class="result-heading">
+            <h2>HTML 코드</h2>
+            <div class="actions">
+              <button type="button" id="copy-btn" class="btn btn-secondary" disabled>클립보드 복사</button>
+              <button type="button" id="clear-btn" class="btn btn-ghost">비우기</button>
+            </div>
+          </div>
+          <textarea id="html-output" class="html-output" readonly placeholder="생성하기를 누르면 여기에 HTML이 표시됩니다."></textarea>
+          <p id="copy-status" class="copy-status" role="status"></p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
