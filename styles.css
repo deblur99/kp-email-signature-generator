@@ -19,71 +19,97 @@ html,
 body {
   margin: 0;
   padding: 0;
+  height: 100%;
   background: var(--bg);
   color: var(--ink);
   font-family: var(--font);
-  line-height: 1.5;
+  line-height: 1.4;
 }
 
 body {
-  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
 .page {
-  max-width: 1180px;
+  width: min(1180px, calc(100% - 24px));
+  height: 95vh;
+  max-height: 95vh;
   margin: 0 auto;
-  padding: 32px 20px 48px;
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow: hidden;
+}
+
+.header {
+  flex: 0 0 auto;
+  text-align: center;
 }
 
 .header h1 {
-  margin: 0 0 6px;
-  font-size: 1.75rem;
+  margin: 0 0 2px;
+  font-size: 1.35rem;
   letter-spacing: -0.02em;
 }
 
 .header p {
   margin: 0;
   color: var(--muted);
-  font-size: 0.95rem;
+  font-size: 0.85rem;
 }
 
 .layout {
+  flex: 1 1 auto;
+  min-height: 0;
   display: grid;
-  grid-template-columns: minmax(280px, 360px) 1fr;
-  gap: 24px;
-  margin-top: 28px;
-  align-items: start;
+  grid-template-columns: minmax(260px, 320px) 1fr;
+  gap: 12px;
+  align-items: stretch;
 }
 
 .panel {
+  min-height: 0;
   background: var(--panel);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  padding: 20px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .panel h2 {
-  margin: 0 0 16px;
-  font-size: 1rem;
+  margin: 0 0 8px;
+  font-size: 0.92rem;
   font-weight: 700;
+  flex: 0 0 auto;
+}
+
+.form-panel {
+  overflow: auto;
 }
 
 #signature-form {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 8px;
+  flex: 1 1 auto;
 }
 
 label,
 .field-group {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
 }
 
 label span,
 .field-label {
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   font-weight: 600;
   color: var(--muted);
 }
@@ -94,8 +120,9 @@ textarea {
   width: 100%;
   border: 1px solid #d0d0d0;
   border-radius: 8px;
-  padding: 10px 12px;
+  padding: 7px 10px;
   font: inherit;
+  font-size: 0.9rem;
   color: var(--ink);
   background: #fff;
 }
@@ -111,12 +138,12 @@ textarea:focus {
 .email-row {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 .phone-row select {
-  width: 96px;
-  flex: 0 0 96px;
+  width: 88px;
+  flex: 0 0 88px;
 }
 
 .phone-row input {
@@ -130,7 +157,7 @@ textarea:focus {
 .email-suffix {
   flex: 0 0 auto;
   color: var(--muted);
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   white-space: nowrap;
 }
 
@@ -138,8 +165,9 @@ textarea:focus {
   appearance: none;
   border: 1px solid transparent;
   border-radius: 8px;
-  padding: 10px 14px;
+  padding: 8px 12px;
   font: inherit;
+  font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
 }
@@ -150,7 +178,7 @@ textarea:focus {
 }
 
 .btn-primary {
-  margin-top: 6px;
+  margin-top: auto;
   background: var(--accent);
   color: #fff;
 }
@@ -181,17 +209,30 @@ textarea:focus {
 }
 
 .result-panel {
+  gap: 10px;
+}
+
+.result-block {
+  min-height: 0;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+}
+
+.result-block:first-child {
+  flex: 0 1 38%;
+}
+
+.result-block:last-child {
+  flex: 1 1 62%;
 }
 
 .result-heading {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 16px;
+  gap: 8px;
+  margin-bottom: 8px;
+  flex: 0 0 auto;
 }
 
 .result-heading h2 {
@@ -200,44 +241,79 @@ textarea:focus {
 
 .actions {
   display: flex;
-  gap: 8px;
+  gap: 6px;
   flex-wrap: wrap;
 }
 
 .preview {
-  min-height: 160px;
-  padding: 16px;
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 10px;
   background: #fff;
   border: 1px dashed #d8d8d8;
   border-radius: 8px;
-  overflow-x: auto;
+  overflow: auto;
 }
 
 .preview:empty::before {
   content: "생성된 서명이 여기에 표시됩니다.";
   color: #999;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
 }
 
 .html-output {
-  min-height: 220px;
-  resize: vertical;
+  flex: 1 1 auto;
+  min-height: 0;
+  height: auto;
+  resize: none;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 0.8rem;
-  line-height: 1.45;
+  font-size: 0.75rem;
+  line-height: 1.4;
   background: #fafafa;
 }
 
 .copy-status {
-  min-height: 1.2em;
-  margin: 8px 0 0;
-  font-size: 0.85rem;
+  min-height: 1em;
+  margin: 4px 0 0;
+  font-size: 0.78rem;
   color: var(--accent);
+  flex: 0 0 auto;
 }
 
 @media (max-width: 900px) {
+  body {
+    overflow: auto;
+    align-items: flex-start;
+  }
+
+  .page {
+    height: auto;
+    max-height: none;
+    min-height: 95vh;
+    overflow: visible;
+    padding: 12px;
+  }
+
   .layout {
     grid-template-columns: 1fr;
+  }
+
+  .panel {
+    overflow: visible;
+  }
+
+  .result-block:first-child,
+  .result-block:last-child {
+    flex: none;
+  }
+
+  .preview {
+    min-height: 140px;
+  }
+
+  .html-output {
+    min-height: 160px;
+    resize: vertical;
   }
 
   .result-heading {
