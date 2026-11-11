@@ -19,15 +19,15 @@
         <form id="signature-form" novalidate>
           <label>
             <span>이름</span>
-            <input type="text" id="name" name="name" required placeholder="한현민" autocomplete="name" />
+            <input type="text" id="name" name="name" required value="" autocomplete="name" />
           </label>
 
           <label>
             <span>직급</span>
             <select id="title" name="title" required>
               <option value="사원">사원</option>
-              <option value="주임">주임</option>
-              <option value="대리" selected>대리</option>
+              <option value="주임" selected>주임</option>
+              <option value="대리">대리</option>
               <option value="팀장">팀장</option>
               <option value="과장">과장</option>
               <option value="차장">차장</option>
@@ -78,14 +78,16 @@
                 <option value="070">070</option>
               </select>
               <span class="phone-dash">-</span>
-              <input type="text" id="mobile-number" name="mobileNumber" placeholder="2581-5658" inputmode="numeric" />
+              <input type="text" id="mobile-mid" name="mobileMid" value="" inputmode="numeric" aria-label="휴대폰 가운데 번호" />
+              <span class="phone-dash">-</span>
+              <input type="text" id="mobile-last" name="mobileLast" value="" inputmode="numeric" aria-label="휴대폰 뒤 번호" />
             </div>
           </div>
 
           <div class="field-group">
             <span class="field-label">이메일</span>
             <div class="email-row">
-              <input type="text" id="email-local" name="emailLocal" placeholder="deblur99" autocomplete="username" />
+              <input type="text" id="email-local" name="emailLocal" value="" autocomplete="username" />
               <span class="email-suffix">@knowledgepoint.co.kr</span>
             </div>
           </div>
@@ -96,7 +98,7 @@
               type="text"
               id="address"
               name="address"
-              value="서울 서초구 사임당로10길 3, 5층 (서초동, 원진빌딩)"
+              value="서울 서초구 사임당로10길 3, 501호 (서초동, 원진빌딩)"
             />
           </label>
 

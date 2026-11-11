@@ -142,12 +142,13 @@ textarea:focus {
 }
 
 .phone-row select {
-  width: 88px;
-  flex: 0 0 88px;
+  width: 72px;
+  flex: 0 0 72px;
 }
 
 .phone-row input {
   flex: 1;
+  min-width: 0;
 }
 
 .phone-dash {
@@ -261,6 +262,10 @@ textarea:focus {
   font-size: 0.85rem;
 }
 
+.preview p {
+  margin: 0;
+}
+
 .html-output {
   flex: 1 1 auto;
   min-height: 0;
@@ -278,6 +283,10 @@ textarea:focus {
   font-size: 0.78rem;
   color: var(--accent);
   flex: 0 0 auto;
+}
+
+.copy-status.is-error {
+  color: #d32f2f;
 }
 
 @media (max-width: 900px) {

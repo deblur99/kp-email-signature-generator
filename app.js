@@ -2,13 +2,14 @@
   const EMAIL_DOMAIN = "@knowledgepoint.co.kr";
   const DEFAULTS = {
     name: "",
-    title: "대리",
+    title: "주임",
     company: "(주)날리지포인트",
     officePhone: "070-4325-4033",
     mobilePrefix: "010",
-    mobileNumber: "",
+    mobileMid: "",
+    mobileLast: "",
     emailLocal: "",
-    address: "서울 서초구 사임당로10길 3, 5층 (서초동, 원진빌딩)",
+    address: "서울 서초구 사임당로10길 3, 501호 (서초동, 원진빌딩)",
   };
 
   const form = document.getElementById("signature-form");
@@ -24,7 +25,8 @@
     company: document.getElementById("company"),
     officePhone: document.getElementById("office-phone"),
     mobilePrefix: document.getElementById("mobile-prefix"),
-    mobileNumber: document.getElementById("mobile-number"),
+    mobileMid: document.getElementById("mobile-mid"),
+    mobileLast: document.getElementById("mobile-last"),
     emailLocal: document.getElementById("email-local"),
     address: document.getElementById("address"),
   };
@@ -38,10 +40,17 @@
       .replace(/'/g, "&#39;");
   }
 
-  function formatMobile(prefix, rest) {
-    const cleaned = String(rest || "").replace(/[^\d-]/g, "").replace(/^-+/, "");
-    if (!cleaned) return prefix;
-    return `${prefix}-${cleaned}`;
+  function digitsOnly(value) {
+    return String(value || "").replace(/\D/g, "");
+  }
+
+  function formatMobile(prefix, mid, last) {
+    const midDigits = digitsOnly(mid);
+    const lastDigits = digitsOnly(last);
+    if (!midDigits && !lastDigits) return prefix;
+    if (!lastDigits) return `${prefix}-${midDigits}`;
+    if (!midDigits) return `${prefix}-${lastDigits}`;
+    return `${prefix}-${midDigits}-${lastDigits}`;
   }
 
   function getCiUrl() {
@@ -58,7 +67,7 @@
     const email = escapeHtml(data.email);
     const address = escapeHtml(data.address);
 
-    return `<table cellspacing="0" cellpadding="0" border="0" style="border: 2px solid #000;width:100%;background:#ffffff;">    <tbody>      <tr>        <td valign="middle" style="padding: 26px 0;background:#ffffff;">          <table cellspacing="0" cellpadding="0" border="0" style="width:100%">            <tbody>              <tr>                <td width="219" align="center" style="padding-right:7px;"><p><img src="${ciUrl}" style="width: 80%;"><br></p></td>                <td valign="top" style="padding-left:21px;border-left:1px solid #e0e0e0">                  <table cellspacing="0" cellpadding="0" border="0" style="width:100%">                    <tbody>                      <tr>                        <td style="position:relative;top:-3px;padding-bottom:8px;font-weight:bold;font-size:14px;font-family:'맑은 고딕','Malgun Gothic','돋움',dotum,sans-serif">${name}</td>                      </tr>                      <tr>                        <td style="font-size:12px;font-family:'맑은 고딕','Malgun Gothic','돋움',dotum,sans-serif;line-height:17px;color:#888">${title}<span style="position:relative;top:-1px;padding:0 6px;color:#d7d7d7">|</span>${company}</td>                      </tr>                      <tr>                        <td style="font-size:12px;font-family:'맑은 고딕','Malgun Gothic','돋움',dotum,sans-serif;line-height:17px;color:#888"><p><span style="font-weight:bold;color:#111">t</span>  ${officePhone}<span style="position:relative;top:-1px;padding:0 6px;color:#d7d7d7">|</span><span style="font-weight:bold;color:#111">m</span>  ${mobile}<span style="position:relative;top:-1px;padding:0 6px;color:#d7d7d7">|</span><span style="font-weight:bold;color:#111">e</span>&nbsp;${email}</p></td>                      </tr>                      <tr>                        <td style="font-size:12px;font-family:'맑은 고딕','Malgun Gothic','돋움',dotum,sans-serif;line-height:17px;color:#888"><p><span style="font-weight:bold;color:#111">a</span>&nbsp;${address}</p></td>                      </tr>                    </tbody>                  </table>                </td>              </tr>            </tbody>          </table>        </td>      </tr>    </tbody>  </table><p><br></p>`;
+    return `<table cellspacing="0" cellpadding="0" border="0" style="border: 2px solid #000;width:100%;background:#ffffff;">    <tbody>      <tr>        <td valign="middle" style="padding: 26px 0;background:#ffffff;">          <table cellspacing="0" cellpadding="0" border="0" style="width:100%">            <tbody>              <tr>                <td width="219" align="center" style="padding-right:7px;"><p style="margin:0;"><img src="${ciUrl}" style="width: 80%;"><br></p></td>                <td valign="top" style="padding-left:21px;border-left:1px solid #e0e0e0">                  <table cellspacing="0" cellpadding="0" border="0" style="width:100%">                    <tbody>                      <tr>                        <td style="position:relative;top:-3px;padding-bottom:8px;font-weight:bold;font-size:14px;font-family:'맑은 고딕','Malgun Gothic','돋움',dotum,sans-serif">${name}</td>                      </tr>                      <tr>                        <td style="font-size:12px;font-family:'맑은 고딕','Malgun Gothic','돋움',dotum,sans-serif;line-height:17px;color:#888">${title}<span style="position:relative;top:-1px;padding:0 6px;color:#d7d7d7">|</span>${company}</td>                      </tr>                      <tr>                        <td style="font-size:12px;font-family:'맑은 고딕','Malgun Gothic','돋움',dotum,sans-serif;line-height:17px;color:#888"><p style="margin:0;"><span style="font-weight:bold;color:#111">t</span>  ${officePhone}<span style="position:relative;top:-1px;padding:0 6px;color:#d7d7d7">|</span><span style="font-weight:bold;color:#111">m</span>  ${mobile}<span style="position:relative;top:-1px;padding:0 6px;color:#d7d7d7">|</span><span style="font-weight:bold;color:#111">e</span>&nbsp;${email}</p></td>                      </tr>                      <tr>                        <td style="font-size:12px;font-family:'맑은 고딕','Malgun Gothic','돋움',dotum,sans-serif;line-height:17px;color:#888"><p style="margin:0;"><span style="font-weight:bold;color:#111">a</span>&nbsp;${address}</p></td>                      </tr>                    </tbody>                  </table>                </td>              </tr>            </tbody>          </table>        </td>      </tr>    </tbody>  </table><p style="margin:0;"><br></p>`;
   }
 
   function readForm() {
@@ -67,18 +76,27 @@
       title: fields.title.value,
       company: fields.company.value.trim() || DEFAULTS.company,
       officePhone: fields.officePhone.value.trim() || DEFAULTS.officePhone,
-      mobile: formatMobile(fields.mobilePrefix.value, fields.mobileNumber.value.trim()),
+      mobile: formatMobile(
+        fields.mobilePrefix.value,
+        fields.mobileMid.value.trim(),
+        fields.mobileLast.value.trim()
+      ),
       email: `${fields.emailLocal.value.trim()}${EMAIL_DOMAIN}`,
       address: fields.address.value.trim() || DEFAULTS.address,
       ciUrl: getCiUrl(),
     };
   }
 
+  function setStatus(message, isError) {
+    copyStatus.textContent = message;
+    copyStatus.classList.toggle("is-error", Boolean(isError));
+  }
+
   function setOutput(html) {
     preview.innerHTML = html;
     htmlOutput.value = html;
     copyBtn.disabled = !html;
-    copyStatus.textContent = "";
+    setStatus("", false);
   }
 
   function resetForm() {
@@ -87,7 +105,8 @@
     fields.company.value = DEFAULTS.company;
     fields.officePhone.value = DEFAULTS.officePhone;
     fields.mobilePrefix.value = DEFAULTS.mobilePrefix;
-    fields.mobileNumber.value = DEFAULTS.mobileNumber;
+    fields.mobileMid.value = DEFAULTS.mobileMid;
+    fields.mobileLast.value = DEFAULTS.mobileLast;
     fields.emailLocal.value = DEFAULTS.emailLocal;
     fields.address.value = DEFAULTS.address;
   }
@@ -98,17 +117,17 @@
     const data = readForm();
     if (!data.name) {
       fields.name.focus();
-      copyStatus.textContent = "이름을 입력해 주세요.";
+      setStatus("이름을 입력해 주세요.", true);
       return;
     }
     if (!fields.emailLocal.value.trim()) {
       fields.emailLocal.focus();
-      copyStatus.textContent = "이메일을 입력해 주세요.";
+      setStatus("이메일을 입력해 주세요.", true);
       return;
     }
-    if (!fields.mobileNumber.value.trim()) {
-      fields.mobileNumber.focus();
-      copyStatus.textContent = "휴대폰 번호를 입력해 주세요.";
+    if (!digitsOnly(fields.mobileMid.value) || !digitsOnly(fields.mobileLast.value)) {
+      (digitsOnly(fields.mobileMid.value) ? fields.mobileLast : fields.mobileMid).focus();
+      setStatus("휴대폰 번호를 입력해 주세요.", true);
       return;
     }
 
@@ -121,11 +140,11 @@
 
     try {
       await navigator.clipboard.writeText(html);
-      copyStatus.textContent = "HTML을 클립보드에 복사했습니다.";
+      setStatus("HTML을 클립보드에 복사했습니다.", false);
     } catch (error) {
       htmlOutput.focus();
       htmlOutput.select();
-      copyStatus.textContent = "복사에 실패했습니다. 코드를 직접 선택해 복사해 주세요.";
+      setStatus("복사에 실패했습니다. 코드를 직접 선택해 복사해 주세요.", true);
     }
   });
 
